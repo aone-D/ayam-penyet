@@ -32,5 +32,5 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
 EXPOSE 80
 
 # Jalankan nginx dan php-fpm bersamaan
-CMD service nginx start && php-fpm
+CMD php artisan migrate --force && service nginx start && php-fpm
 
