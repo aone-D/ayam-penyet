@@ -3,26 +3,37 @@
 @section('title', 'Report Rentang Tanggal')
 
 @section('content')
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Report Rentang Tanggal</h1>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-gradient-header">
+                <div class="card-body py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="mb-0 text-white"><i class="fas fa-chart-line me-2"></i>Report Rentang Tanggal</h1>
+                            <p class="mb-0 text-white-50">Laporan penjualan dan tren keuntungan periode tertentu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="card mb-4">
+    <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <form method="GET" action="{{ route('report.rentang') }}">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="tanggal_mulai" class="form-label">Tanggal Mulai</label>
+                        <label for="tanggal_mulai" class="form-label fw-bold">Tanggal Mulai</label>
                         <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" value="{{ $tanggalMulai }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="tanggal_selesai" class="form-label">Tanggal Selesai</label>
+                        <label for="tanggal_selesai" class="form-label fw-bold">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" value="{{ $tanggalSelesai }}">
                     </div>
                     <div class="col-md-4 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-filter"></i> Tampilkan
+                            <i class="fas fa-filter me-2"></i>Tampilkan
                         </button>
                     </div>
                 </div>
@@ -33,56 +44,68 @@
     @if($penjualans->count() > 0)
         <div class="row mb-4">
             <div class="col-md-3">
-                <div class="card bg-primary text-white">
+                <div class="card border-0 shadow-sm bg-gradient-primary">
                     <div class="card-body text-center">
-                        <h6 class="card-title">Total Pemasukan</h6>
-                        <h3>@rupiah($totalPemasukan)</h3>
+                        <div class="mb-2">
+                            <i class="fas fa-money-bill-wave fa-2x text-white"></i>
+                        </div>
+                        <h6 class="card-title text-white">Total Pemasukan</h6>
+                        <h3 class="text-white fw-bold">@rupiah($totalPemasukan)</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-warning text-dark">
+                <div class="card border-0 shadow-sm bg-gradient-warning">
                     <div class="card-body text-center">
-                        <h6 class="card-title">Total HPP (Modal)</h6>
-                        <h3>@rupiah($totalHpp)</h3>
+                        <div class="mb-2">
+                            <i class="fas fa-calculator fa-2x text-white"></i>
+                        </div>
+                        <h6 class="card-title text-white">Total HPP (Modal)</h6>
+                        <h3 class="text-white fw-bold">@rupiah($totalHpp)</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-success text-white">
+                <div class="card border-0 shadow-sm bg-gradient-success">
                     <div class="card-body text-center">
-                        <h6 class="card-title">Total Keuntungan</h6>
-                        <h3>@rupiah($totalKeuntungan)</h3>
+                        <div class="mb-2">
+                            <i class="fas fa-chart-line fa-2x text-white"></i>
+                        </div>
+                        <h6 class="card-title text-white">Total Keuntungan</h6>
+                        <h3 class="text-white fw-bold">@rupiah($totalKeuntungan)</h3>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-info text-white">
+                <div class="card border-0 shadow-sm bg-gradient-info">
                     <div class="card-body text-center">
-                        <h6 class="card-title">Total Porsi Terjual</h6>
-                        <h3>{{ $totalPorsi }}</h3>
+                        <div class="mb-2">
+                            <i class="fas fa-utensils fa-2x text-white"></i>
+                        </div>
+                        <h6 class="card-title text-white">Total Porsi Terjual</h6>
+                        <h3 class="text-white fw-bold">{{ $totalPorsi }}</h3>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0">Tren Keuntungan Harian</h5>
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="fas fa-chart-area me-2"></i>Tren Keuntungan Harian</h5>
             </div>
             <div class="card-body">
                 <canvas id="profitChart" height="100"></canvas>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Breakdown per Resep</h5>
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="fas fa-list me-2"></i>Breakdown per Resep</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
                             <tr>
                                 <th>Nama Resep</th>
                                 <th>Qty Terjual</th>
@@ -111,9 +134,12 @@
             </div>
         </div>
     @else
-        <div class="alert alert-info text-center">
-            <h4>Tidak ada transaksi pada rentang tanggal ini</h4>
-            <p>Pilih rentang tanggal lain untuk melihat laporan.</p>
+        <div class="alert alert-info text-center border-0 shadow-sm">
+            <div class="py-4">
+                <i class="fas fa-calendar-times fa-3x mb-3 text-info"></i>
+                <h4>Tidak ada transaksi pada rentang tanggal ini</h4>
+                <p class="mb-0">Pilih rentang tanggal lain untuk melihat laporan.</p>
+            </div>
         </div>
     @endif
 </div>
@@ -135,10 +161,14 @@ new Chart(ctx, {
         datasets: [{
             label: 'Keuntungan (Rp)',
             data: data,
-            borderColor: 'rgb(75, 192, 192)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.1,
-            fill: true
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.2)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#667eea',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5
         }]
     },
     options: {
@@ -166,3 +196,21 @@ new Chart(ctx, {
 });
 </script>
 @endpush
+
+<style>
+.bg-gradient-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+.bg-gradient-success {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+.bg-gradient-info {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+</style>

@@ -53,6 +53,7 @@ class ReportController extends Controller
         });
 
         return view('report.harian', compact(
+            'penjualans',
             'tanggal',
             'totalPemasukan',
             'totalHpp',

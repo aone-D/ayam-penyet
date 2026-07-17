@@ -3,12 +3,23 @@
 @section('title', 'Daftar Resep')
 
 @section('content')
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Daftar Resep</h1>
-        <a href="{{ route('resep.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i>Tambah Resep
-        </a>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-gradient-header">
+                <div class="card-body py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="mb-0 text-white"><i class="fas fa-utensils me-2"></i>Daftar Resep</h1>
+                            <p class="mb-0 text-white-50">Kelola resep menu dan hitung HPP otomatis</p>
+                        </div>
+                        <a href="{{ route('resep.create') }}" class="btn btn-light">
+                            <i class="fas fa-plus me-2"></i>Tambah Resep
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     @if(session('success'))
@@ -25,15 +36,18 @@
         </div>
     @endif
 
-    <div class="card">
+    <div class="card border-0 shadow-sm">
         <div class="card-body">
-            <form method="GET" action="{{ route('resep.index') }}" class="mb-3">
+            <form method="GET" action="{{ route('resep.index') }}" class="mb-4">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari resep..." value="{{ request('search') }}">
-                            <button type="submit" class="btn btn-outline-secondary">
-                                <i class="fas fa-search"></i>
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="fas fa-search text-muted"></i>
+                            </span>
+                            <input type="text" name="search" class="form-control border-start-0" placeholder="Cari resep..." value="{{ request('search') }}">
+                            <button type="submit" class="btn btn-primary">
+                                Cari
                             </button>
                             @if(request('search'))
                                 <a href="{{ route('resep.index') }}" class="btn btn-outline-secondary">
@@ -46,14 +60,14 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
                         <tr>
                             <th>Nama</th>
                             <th>HPP</th>
                             <th>Harga Jual</th>
                             <th>Margin</th>
-                            <th>Aksi</th>
+                            <th class="text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,18 +79,18 @@
                                 <td>
                                     @rupiah($resep->margin) ({{ number_format($resep->margin_persen, 2) }}%)
                                 </td>
-                                <td>
+                                <td class="text-end">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('resep.show', $resep->id) }}" class="btn btn-sm btn-outline-info">
+                                        <a href="{{ route('resep.show', $resep->id) }}" class="btn btn-sm btn-info" title="Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('resep.edit', $resep->id) }}" class="btn btn-sm btn-outline-primary">
+                                        <a href="{{ route('resep.edit', $resep->id) }}" class="btn btn-sm btn-primary" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus resep ini?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -85,7 +99,15 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Tidak ada data resep</td>
+                                <td colspan="5" class="text-center py-5">
+                                    <div class="text-muted">
+                                        <i class="fas fa-utensils fa-3x mb-3"></i>
+                                        <p class="mb-0">Tidak ada data resep</p>
+                                        <a href="{{ route('resep.create') }}" class="btn btn-primary btn-sm mt-2">
+                                            <i class="fas fa-plus me-1"></i>Tambah Resep
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -95,3 +117,9 @@
     </div>
 </div>
 @endsection
+
+<style>
+.bg-gradient-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+</style>
