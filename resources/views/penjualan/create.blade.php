@@ -89,7 +89,7 @@ function tambahItem(resepId = '', qty = '') {
     
     let options = '<option value="">Pilih Resep</option>';
     reseps.forEach(resep => {
-        options += `<option value="${resep.id}" data-harga="${resep.harga_jual}" ${resep.id == resepId ? 'selected' : ''}>${resep.nama} - @rupiah(${resep.harga_jual})</option>`;
+        options += `<option value="${resep.id}" data-harga="${resep.harga_jual}" ${resep.id == resepId ? 'selected' : ''}>${resep.nama} - ${formatRupiah(resep.harga_jual)}</option>`;
     });
 
     const row = document.createElement('div');
