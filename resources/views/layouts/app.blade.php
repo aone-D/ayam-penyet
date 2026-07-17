@@ -84,6 +84,14 @@
                             <i class="fas fa-chart-line"></i> Report
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link btn btn-link text-white">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
