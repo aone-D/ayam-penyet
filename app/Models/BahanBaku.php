@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['nama', 'satuan_beli', 'satuan_pakai', 'konversi', 'harga_beli', 'harga_per_satuan_pakai', 'stok_saat_ini', 'stok_minimum'])]
+#[Fillable(['nama', 'satuan_beli', 'penggunaan', 'satuan_pakai', 'konversi', 'harga_beli', 'harga_per_satuan_pakai', 'stok_saat_ini', 'stok_minimum'])]
 class BahanBaku extends Model
 {
     use HasFactory;
 
     protected $casts = [
+        'penggunaan' => 'decimal:2',
         'konversi' => 'decimal:2',
         'harga_beli' => 'decimal:2',
         'harga_per_satuan_pakai' => 'decimal:4',

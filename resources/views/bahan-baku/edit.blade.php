@@ -40,18 +40,28 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="satuan_pakai" class="form-label">Satuan Pakai</label>
-                                    <select class="form-select @error('satuan_pakai') is-invalid @enderror" id="satuan_pakai" name="satuan_pakai" required>
-                                        <option value="">Pilih Satuan Pakai</option>
-                                        <option value="gram" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'gram' ? 'selected' : '' }}>gram</option>
-                                        <option value="ml" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'ml' ? 'selected' : '' }}>ml</option>
-                                        <option value="pcs" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'pcs' ? 'selected' : '' }}>pcs</option>
-                                    </select>
-                                    @error('satuan_pakai')
+                                    <label for="penggunaan" class="form-label">Penggunaan (jumlah potong/porsi)</label>
+                                    <input type="number" step="0.01" class="form-control @error('penggunaan') is-invalid @enderror" id="penggunaan" name="penggunaan" value="{{ old('penggunaan', $bahanBaku->penggunaan) }}" required>
+                                    @error('penggunaan')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
+                                    <small class="text-muted">Contoh: 1kg ayam untuk 4 potong → isi 4</small>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="satuan_pakai" class="form-label">Satuan Pakai</label>
+                            <select class="form-select @error('satuan_pakai') is-invalid @enderror" id="satuan_pakai" name="satuan_pakai" required>
+                                <option value="">Pilih Satuan Pakai</option>
+                                <option value="potong" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'potong' ? 'selected' : '' }}>potong</option>
+                                <option value="gram" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'gram' ? 'selected' : '' }}>gram</option>
+                                <option value="ml" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'ml' ? 'selected' : '' }}>ml</option>
+                                <option value="pcs" {{ old('satuan_pakai', $bahanBaku->satuan_pakai) == 'pcs' ? 'selected' : '' }}>pcs</option>
+                            </select>
+                            @error('satuan_pakai')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">

@@ -42,6 +42,7 @@ class BahanBakuController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'satuan_beli' => 'required|string',
+            'penggunaan' => 'required|numeric|min:0.01',
             'satuan_pakai' => 'required|string',
             'konversi' => 'required|numeric|min:0.01',
             'harga_beli' => 'required|numeric|min:0',
@@ -49,13 +50,14 @@ class BahanBakuController extends Controller
             'stok_minimum' => 'nullable|numeric|min:0',
         ]);
 
-        $hargaPerSatuanPakai = $validated['harga_beli'] / $validated['konversi'];
+        $hargaPerSatuanPakai = $validated['harga_beli'] / $validated['penggunaan'];
         $stokSaatIni = $validated['stok_awal'] * $validated['konversi'];
 
         DB::transaction(function () use ($validated, $hargaPerSatuanPakai, $stokSaatIni) {
             $bahanBaku = BahanBaku::create([
                 'nama' => $validated['nama'],
                 'satuan_beli' => $validated['satuan_beli'],
+                'penggunaan' => $validated['penggunaan'],
                 'satuan_pakai' => $validated['satuan_pakai'],
                 'konversi' => $validated['konversi'],
                 'harga_beli' => $validated['harga_beli'],
@@ -86,6 +88,7 @@ class BahanBakuController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'satuan_beli' => 'required|string',
+            'penggunaan' => 'required|numeric|min:0.01',
             'satuan_pakai' => 'required|string',
             'konversi' => 'required|numeric|min:0.01',
             'harga_beli' => 'required|numeric|min:0',
@@ -93,11 +96,12 @@ class BahanBakuController extends Controller
         ]);
 
         $bahanBaku = BahanBaku::findOrFail($id);
-        $hargaPerSatuanPakai = $validated['harga_beli'] / $validated['konversi'];
+        $hargaPerSatuanPakai = $validated['harga_beli'] / $validated['penggunaan'];
 
         $bahanBaku->update([
             'nama' => $validated['nama'],
             'satuan_beli' => $validated['satuan_beli'],
+            'penggunaan' => $validated['penggunaan'],
             'satuan_pakai' => $validated['satuan_pakai'],
             'konversi' => $validated['konversi'],
             'harga_beli' => $validated['harga_beli'],
@@ -129,7 +133,7 @@ class BahanBakuController extends Controller
             $bahanBaku->increment('stok_saat_ini', $jumlahKonversi);
 
             if (isset($validated['harga_baru'])) {
-                $hargaPerSatuanPakai = $validated['harga_baru'] / $bahanBaku->konversi;
+                $hargaPerSatuanPakai = $validated['harga_baru'] / $bahanBaku->penggunaan;
                 $bahanBaku->update([
                     'harga_beli' => $validated['harga_baru'],
                     'harga_per_satuan_pakai' => $hargaPerSatuanPakai,
