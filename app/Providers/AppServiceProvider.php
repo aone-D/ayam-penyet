@@ -22,5 +22,9 @@ class AppServiceProvider extends ServiceProvider
         \Blade::directive('rupiah', function ($expression) {
             return "<?php echo 'Rp ' . number_format($expression, 0, ',', '.'); ?>";
         });
+        // 2. Tambahkan logika ini di dalam fungsi boot
+        if (config('app.env') === 'production' || env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
