@@ -33,6 +33,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('bahan-baku.index') }}">Bahan Baku</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('resep.index') }}">Resep</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('penjualan.index') }}">Penjualan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('report.harian') }}">Report</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -152,9 +152,7 @@ class BahanBakuController extends Controller
         $bahanBaku = BahanBaku::findOrFail($id);
 
         // Check if bahan baku is used in recipes
-        // This assumes there's a recipe_bahan table or similar relationship
-        // You may need to adjust this based on your actual recipe structure
-        if ($bahanBaku->resep()->exists()) {
+        if ($bahanBaku->reseps()->exists()) {
             return redirect()->route('bahan-baku.index')->with('error', 'Bahan baku tidak dapat dihapus karena sudah digunakan dalam resep');
         }
 
