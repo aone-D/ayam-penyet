@@ -26,10 +26,11 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 # Copy konfigurasi nginx
 COPY nginx.conf /etc/nginx/sites-available/default
 
-# Set permission untuk storage & cache
-RUN chmod -R 775 storage bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 80
 
 # Jalankan nginx dan php-fpm bersamaan
 CMD service nginx start && php-fpm
+
