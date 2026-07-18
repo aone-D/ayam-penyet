@@ -13,6 +13,8 @@ class BahanBaku extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nama', 'satuan_beli', 'penggunaan', 'satuan_pakai', 'konversi', 'harga_beli', 'harga_per_satuan_pakai', 'stok_saat_ini', 'stok_minimum'];
+
     protected $casts = [
         'penggunaan' => 'decimal:2',
         'konversi' => 'decimal:2',
