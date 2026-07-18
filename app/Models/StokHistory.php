@@ -12,6 +12,8 @@ class StokHistory extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['bahan_baku_id', 'tipe', 'jumlah', 'keterangan'];
+
     public $timestamps = false;
 
     protected $casts = [
