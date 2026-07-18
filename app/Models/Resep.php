@@ -13,6 +13,8 @@ class Resep extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nama', 'deskripsi', 'harga_jual', 'foto'];
+
     protected $casts = [
         'harga_jual' => 'decimal:2',
     ];
