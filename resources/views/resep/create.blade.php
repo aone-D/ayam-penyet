@@ -97,6 +97,17 @@ function tambahBahan(bahanId = '', jumlah = '') {
     bahanCounter++;
     const container = document.getElementById('bahan-container');
     
+    if (!container) {
+        console.error('Container bahan-container not found');
+        return;
+    }
+    
+    if (!bahanBakus || bahanBakus.length === 0) {
+        console.error('bahanBakus is empty or not defined');
+        alert('Tidak ada bahan baku tersedia');
+        return;
+    }
+    
     let options = '<option value="">Pilih Bahan Baku</option>';
     bahanBakus.forEach(bahan => {
         options += `<option value="${bahan.id}" ${bahan.id == bahanId ? 'selected' : ''}>${bahan.nama} (${bahan.satuan_pakai})</option>`;
